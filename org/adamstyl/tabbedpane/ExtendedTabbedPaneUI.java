@@ -105,6 +105,7 @@ public class ExtendedTabbedPaneUI extends TabbedPaneUI {
 
 	public void addTabComponent(String title, Icon icon, String tip, int index) {
 		TabComponent tabComponent = new TabComponent(title, icon, tip);
+		tabComponent.setFont(tabbedPane.getFont());
 		tabComponent.setPreferredSize(uiProps.getTabSize());
 		tabComponent.addActionListener(tabComponentHandler);
 		tabComponent.addMouseListener(focusGrabber);
@@ -279,6 +280,10 @@ public class ExtendedTabbedPaneUI extends TabbedPaneUI {
 				break;
 		}
 		return clientArea;
+	}
+	
+	public void setTitleAt(String title, int index) {
+		tabs.get(index).setText(title);
 	}
 	
 	private class FocusGrabber extends MouseAdapter {

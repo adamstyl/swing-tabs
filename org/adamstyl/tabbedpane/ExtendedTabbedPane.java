@@ -37,8 +37,8 @@ public class ExtendedTabbedPane extends JTabbedPane implements IExtendedTabbedPa
 	private boolean isAdding = false;
 	private boolean isRemoving = false;
 
+	ExtendedTabbedPaneUI ui = new ExtendedTabbedPaneUI();
 	public ExtendedTabbedPane() {
-		ExtendedTabbedPaneUI ui = new ExtendedTabbedPaneUI();
 		setUI(ui);
 		ui.setTabSwitcher(new TabSwitcher());
 		mruTabCycling = true;
@@ -163,6 +163,14 @@ public class ExtendedTabbedPane extends JTabbedPane implements IExtendedTabbedPa
 	@Override
 	public void setTabComponentAt(int index, Component component) {
 		super.setTabComponentAt(index, component);
+	}
+
+	@Override
+	public void setTitleAt(int index, String title) {
+		if (!getTitleAt(index).equals(title)) {
+			ui.setTitleAt(title, index);
+			super.setTitleAt(index, title);
+		}
 	}
 
 	private void fireTabPlacementChanged(final TabLayoutEvent evt) {
