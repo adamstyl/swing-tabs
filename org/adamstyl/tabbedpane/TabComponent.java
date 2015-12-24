@@ -37,13 +37,16 @@ import javax.swing.JLabel;
 
 public class TabComponent extends JComponent {
 
-	private TabComponentPainter tabPainter = new RoundTabComponentPainter();
+	private TabComponentPainter tabPainter = new PerforceTabComponentPainter();
 	private JLabel contentLabel;
 	private TabState state = TabState.RELEASED;
 	private boolean selected = false;
 
 	public TabComponent(String title, Icon icon, String tip) {
 		setLayout(new BorderLayout());
+		if (title.contains("\n")) {
+			title = "<html>" + title.trim().replace("\n", "<br>") + "</html>";
+		}
 		contentLabel = new JLabel(title, icon, JLabel.CENTER);
 		if (tip != null && !tip.trim().isEmpty()){
 			setToolTipText(tip);
@@ -81,6 +84,9 @@ public class TabComponent extends JComponent {
 	}
 
 	public void setText(String text) {
+		if (text.contains("\n")) {
+			text = "<html>" + text.replace("\n", "</br>") + "</html>";
+		}
 		contentLabel.setText(text);
 	}
 
